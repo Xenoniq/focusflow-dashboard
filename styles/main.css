@@ -336,9 +336,39 @@ button {
   gap: 18px;
 }
 
+.dashboard-feedback {
+  margin: 0 0 18px;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted-strong);
+  background: rgba(255, 255, 255, 0.07);
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.dashboard-feedback[data-type="warning"] {
+  border-color: rgba(251, 191, 36, 0.42);
+  color: #fde68a;
+  background: rgba(251, 191, 36, 0.12);
+}
+
+.dashboard-feedback[data-type="success"] {
+  border-color: rgba(52, 211, 153, 0.42);
+  color: #bbf7d0;
+  background: rgba(52, 211, 153, 0.12);
+}
+
+.dashboard-feedback[hidden],
+.empty-state[hidden] {
+  display: none !important;
+}
+
 .empty-state {
   display: grid;
-  min-height: 420px;
+  min-height: 360px;
   place-items: center;
   padding: 48px;
   border: 1px dashed var(--line);
@@ -347,17 +377,6 @@ button {
   text-align: center;
 }
 
-.empty-state span {
-  display: grid;
-  width: 72px;
-  height: 72px;
-  place-items: center;
-  margin-bottom: 18px;
-  border-radius: 22px;
-  background: var(--surface);
-  color: var(--accent-2);
-  font-size: 2rem;
-}
 
 .empty-state h3 {
   margin: 0 0 8px;
@@ -372,12 +391,16 @@ button {
 }
 
 .site-footer {
-  margin-top: 26px;
-  padding: 0 4px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 30px auto 0;
+  padding: 0;
   color: rgba(200, 203, 224, 0.68);
   font-size: 0.86rem;
   line-height: 1.6;
   text-align: center;
+  text-wrap: balance;
 }
 
 .sr-only {

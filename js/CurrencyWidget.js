@@ -11,7 +11,7 @@ export default class CurrencyWidget extends UIComponent {
 
     this.baseCurrency = config.baseCurrency || 'EUR';
     this.amount = config.amount || 100;
-    this.currencies = ['EUR', 'USD', 'GBP', 'CZK', 'JPY', 'CHF'];
+    this.currencies = ['RUB', 'EUR', 'USD', 'GBP', 'CZK', 'JPY', 'CHF'];
     this.ratesData = null;
 
     this.formElement = null;
@@ -42,7 +42,7 @@ export default class CurrencyWidget extends UIComponent {
         </label>
         <button type="submit">Обновить</button>
       </form>
-      <div class="api-note">Источник: Frankfurter exchange rates API</div>
+      <div class="api-note">Источник: Open ExchangeRate API</div>
       <div class="currency-result"></div>
     `;
 
@@ -84,8 +84,7 @@ export default class CurrencyWidget extends UIComponent {
     this.setLoading(true, 'Получаем курсы…');
 
     try {
-      const quotes = this.currencies.filter((currency) => currency !== this.baseCurrency).join(',');
-      const url = `https://api.frankfurter.dev/v1/latest?base=${this.baseCurrency}&symbols=${quotes}`;
+      const url = `https://open.er-api.com/v6/latest/${this.baseCurrency}`;
       const response = await fetch(url, { signal });
 
       if (!response.ok) {
@@ -93,7 +92,23 @@ export default class CurrencyWidget extends UIComponent {
       }
 
       const data = await response.json();
-      this.ratesData = data;
+
+      if (data.result && data.result !== 'success') {
+        throw new Error('API вернул ошибку при получении курсов.');
+      }
+
+      this.ratesData = {
+        date: data.time_last_update_utc
+          ? new Date(data.time_last_update_utc).toLocaleDateString('ru-RU')
+          : '—',
+        rates: Object.fromEntries(
+          this.currencies
+            .filter((currency) => currency !== this.baseCurrency)
+            .map((currency) => [currency, data.rates?.[currency]])
+            .filter(([, rate]) => Number.isFinite(rate))
+        )
+      };
+
       this.renderRates();
     } catch (error) {
       if (error.name === 'AbortError') return;

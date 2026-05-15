@@ -78,7 +78,7 @@
             <span class="action-card__icon">₿</span>
             <span>
               <strong>Currency API</strong>
-              <small>Frankfurter rates</small>
+              <small>Exchange rates + RUB</small>
             </span>
           </button>
 
@@ -101,9 +101,9 @@
           <button class="ghost-button" id="reset-dashboard" type="button">Сбросить панель</button>
         </div>
 
+        <p class="dashboard-feedback" id="dashboard-feedback" aria-live="polite" hidden></p>
         <div class="dashboard-grid" id="dashboard-grid" aria-live="polite"></div>
         <div class="empty-state" id="empty-state" hidden>
-          <span>＋</span>
           <h3>Панель пока пустая</h3>
           <p>Добавьте виджет через левую панель. Каждый новый компонент получит независимое состояние.</p>
         </div>

@@ -8,7 +8,15 @@ import FocusTimerWidget from './js/FocusTimerWidget.js';
 const dashboard = new Dashboard({
   container: document.querySelector('#dashboard-grid'),
   counterElement: document.querySelector('#widget-counter'),
-  emptyElement: document.querySelector('#empty-state')
+  emptyElement: document.querySelector('#empty-state'),
+  feedbackElement: document.querySelector('#dashboard-feedback'),
+  widgetLabels: {
+    todo: 'Список задач',
+    quote: 'Цитата для фокуса',
+    weather: 'Погода сейчас',
+    currency: 'Курсы валют',
+    focus: 'Фокус-таймер'
+  }
 });
 
 dashboard.registerWidget('todo', ToDoWidget);
@@ -42,13 +50,14 @@ resetButton.addEventListener('click', () => {
 // Стартовое состояние: панель сразу показывает разные типы компонентов,
 // включая два виджета с данными из сторонних API.
 dashboard.addWidget('todo', {
+  silent: true,
   tasks: [
     { id: 'demo-1', text: 'Проверить требования задания', completed: true },
     { id: 'demo-2', text: 'Добавить минимум два API-виджета', completed: false },
     { id: 'demo-3', text: 'Выгрузить проект на GitHub Pages', completed: false }
   ]
 });
-dashboard.addWidget('weather', { city: 'Prague' });
-dashboard.addWidget('currency', { baseCurrency: 'EUR', amount: 100 });
-dashboard.addWidget('quote');
-dashboard.addWidget('focus');
+dashboard.addWidget('weather', { city: 'Prague', silent: true });
+dashboard.addWidget('currency', { baseCurrency: 'EUR', amount: 100, silent: true });
+dashboard.addWidget('quote', { silent: true });
+dashboard.addWidget('focus', { silent: true });

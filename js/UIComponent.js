@@ -33,7 +33,6 @@ export default class UIComponent {
           <span class="widget__icon" aria-hidden="true">${this.icon}</span>
           <div>
             <h3>${this.escapeHTML(this.title)}</h3>
-            <small>${this.escapeHTML(this.id)}</small>
           </div>
         </div>
         <div class="widget__controls">

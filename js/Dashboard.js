@@ -3,8 +3,11 @@ export default class Dashboard {
     this.container = config.container;
     this.counterElement = config.counterElement || null;
     this.emptyElement = config.emptyElement || null;
+    this.feedbackElement = config.feedbackElement || null;
     this.registry = config.registry || {};
+    this.widgetLabels = config.widgetLabels || {};
     this.widgets = new Map();
+    this.feedbackTimer = null;
 
     if (!this.container) {
       throw new Error('Dashboard container is required.');
@@ -22,6 +25,12 @@ export default class Dashboard {
       throw new Error(`Unknown widget type: ${widgetType}`);
     }
 
+    if (this.hasWidgetType(widgetType)) {
+      const label = this.widgetLabels[widgetType] || widgetType;
+      this.showFeedback(`Виджет «${label}» уже добавлен на панель.`, 'warning');
+      return null;
+    }
+
     const widget = new WidgetClass({
       ...config,
       onClose: (widgetId) => this.removeWidget(widgetId)
@@ -30,6 +39,10 @@ export default class Dashboard {
     this.widgets.set(widget.id, widget);
     this.container.append(widget.render());
     this.updateState();
+
+    if (!config.silent) {
+      this.showFeedback(`Виджет «${widget.title}» добавлен.`, 'success');
+    }
 
     return widget;
   }
@@ -46,10 +59,30 @@ export default class Dashboard {
 
   reset() {
     [...this.widgets.keys()].forEach((widgetId) => this.removeWidget(widgetId));
+    this.showFeedback('Панель очищена. Можно добавить новые виджеты.', 'info');
   }
 
   getActiveWidgets() {
     return [...this.widgets.values()];
+  }
+
+  hasWidgetType(widgetType) {
+    return this.getActiveWidgets().some((widget) => widget.type === widgetType);
+  }
+
+  showFeedback(message, type = 'info') {
+    if (!this.feedbackElement) return;
+
+    window.clearTimeout(this.feedbackTimer);
+    this.feedbackElement.textContent = message;
+    this.feedbackElement.dataset.type = type;
+    this.feedbackElement.hidden = false;
+
+    this.feedbackTimer = window.setTimeout(() => {
+      if (this.feedbackElement) {
+        this.feedbackElement.hidden = true;
+      }
+    }, 3600);
   }
 
   updateState() {
