@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FocusFlow Command Center — интерактивная панель управления UI-компонентами на ООП и ES6 Modules." />
+  <title>FocusFlow Command Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/components.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <nav class="topbar" aria-label="Главная навигация">
+        <a class="brand" href="#" aria-label="FocusFlow Command Center">
+          <span class="brand__mark">F</span>
+          <span class="brand__text">FocusFlow</span>
+        </a>
+        <span class="status-pill" id="today-label">Dashboard</span>
+      </nav>
+
+      <section class="hero__content" aria-labelledby="page-title">
+        <div class="hero__copy">
+          <span class="eyebrow">OOP UI Dashboard · ES6 Modules</span>
+          <h1 id="page-title">Интерактивная панель управления продуктивностью</h1>
+          <p>
+            Управляйте задачами, погодой, валютами, цитатами и фокус-сессиями в одной модульной панели.
+            Каждый виджет — отдельный класс с собственным состоянием, жизненным циклом и обработчиками событий.
+          </p>
+        </div>
+
+        <div class="hero-card" aria-label="Сводка панели">
+          <div class="hero-card__glow"></div>
+          <span class="hero-card__label">Active widgets</span>
+          <strong id="widget-counter">0</strong>
+          <span class="hero-card__hint">Можно добавлять и удалять динамически</span>
+        </div>
+      </section>
+    </header>
+
+    <main class="main-layout">
+      <aside class="control-panel" aria-label="Панель добавления виджетов">
+        <div class="panel-heading">
+          <span class="eyebrow">Controls</span>
+          <h2>Добавить виджет</h2>
+          <p>Кнопки вызывают методы класса Dashboard и создают новые экземпляры UI-компонентов.</p>
+        </div>
+
+        <div class="widget-actions">
+          <button class="action-card" type="button" data-widget="todo">
+            <span class="action-card__icon">✓</span>
+            <span>
+              <strong>ToDo</strong>
+              <small>Локальное состояние задач</small>
+            </span>
+          </button>
+
+          <button class="action-card" type="button" data-widget="quote">
+            <span class="action-card__icon">“</span>
+            <span>
+              <strong>Quote</strong>
+              <small>Случайная цитата из массива</small>
+            </span>
+          </button>
+
+          <button class="action-card" type="button" data-widget="weather">
+            <span class="action-card__icon">☁</span>
+            <span>
+              <strong>Weather API</strong>
+              <small>Open-Meteo + геокодинг</small>
+            </span>
+          </button>
+
+          <button class="action-card" type="button" data-widget="currency">
+            <span class="action-card__icon">₿</span>
+            <span>
+              <strong>Currency API</strong>
+              <small>Frankfurter rates</small>
+            </span>
+          </button>
+
+          <button class="action-card" type="button" data-widget="focus">
+            <span class="action-card__icon">⏱</span>
+            <span>
+              <strong>Focus Timer</strong>
+              <small>Таймер концентрации</small>
+            </span>
+          </button>
+        </div>
+      </aside>
+
+      <section class="dashboard-section" aria-labelledby="dashboard-title">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Workspace</span>
+            <h2 id="dashboard-title">Живая сетка компонентов</h2>
+          </div>
+          <button class="ghost-button" id="reset-dashboard" type="button">Сбросить панель</button>
+        </div>
+
+        <div class="dashboard-grid" id="dashboard-grid" aria-live="polite"></div>
+        <div class="empty-state" id="empty-state" hidden>
+          <span>＋</span>
+          <h3>Панель пока пустая</h3>
+          <p>Добавьте виджет через левую панель. Каждый новый компонент получит независимое состояние.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      © Алексеева Н.Д · 2026 · Нейросеть: ChatGPT · Время выполнения: 15-20 минут
+    </footer>
+  </div>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
