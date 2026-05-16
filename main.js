@@ -47,17 +47,5 @@ resetButton.addEventListener('click', () => {
   dashboard.reset();
 });
 
-// Стартовое состояние: панель сразу показывает разные типы компонентов,
-// включая два виджета с данными из сторонних API.
-dashboard.addWidget('todo', {
-  silent: true,
-  tasks: [
-    { id: 'demo-1', text: 'Проверить требования задания', completed: true },
-    { id: 'demo-2', text: 'Добавить минимум два API-виджета', completed: false },
-    { id: 'demo-3', text: 'Выгрузить проект на GitHub Pages', completed: false }
-  ]
-});
-dashboard.addWidget('weather', { city: 'Prague', silent: true });
-dashboard.addWidget('currency', { baseCurrency: 'EUR', amount: 100, silent: true });
-dashboard.addWidget('quote', { silent: true });
-dashboard.addWidget('focus', { silent: true });
+// При первом открытии панель остаётся пустой.
+dashboard.updateState();

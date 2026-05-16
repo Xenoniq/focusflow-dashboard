@@ -134,6 +134,7 @@ styles/
 - `fetch()`;
 - `async/await`.
 
+
 ## Соответствие требованиям задания
 
 | Требование | Реализация |
@@ -152,8 +153,6 @@ styles/
 | Независимое состояние виджетов | Каждый экземпляр хранит собственные данные |
 | Очистка слушателей событий | Метод `destroy()` и `removeEventListener()` |
 | Адаптивный layout | CSS Grid и media queries |
-| GitHub Pages | Проект опубликован на GitHub Pages |
+| GitHub Pages | Проект опублиткован на GitPages: https://xenoniq.github.io/focusflow-dashboard/ |
 
-## Формат сдачи
-
-
+```
